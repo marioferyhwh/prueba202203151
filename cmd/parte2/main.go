@@ -20,29 +20,63 @@ type FileCsv1 struct {
 	column []*Column
 }
 
+type Answers struct {
+	Organizacion string `json:"organizacion"`
+	Users        []User `json:"users"`
+}
+type User struct {
+	UserName string   `json:"username"`
+	Roles    []string `json:"roles"`
+}
+
+func Search(length int, f func(index int) bool) int {
+	for index := 0; index < length; index++ {
+		if f(index) {
+			return index
+		}
+	}
+	return -1
+}
+
 func main() {
 	fileName := "./archivo.csv"
 	var fileCsv1 FileCsv1
 	fileCsv1 = readCsvFile(fileName)
 
-	//fmt.Println(fileCsv1)
-
-	//emp := &Employee{Name: "Rocky", Number: 5454}
-	salida := "["
-
+	answers := []Answers{}
 	for _, col := range fileCsv1.column {
 
-		e, err := json.Marshal(col)
-		if err != nil {
-			fmt.Println(err)
-			return
+		indexOrganizacion := len(answers)
+		index := Search(len(answers), func(i int) bool { return answers[i].Organizacion == col.Organizacion })
+		if index != -1 {
+			indexOrganizacion = index
+		} else {
+			answers = append(answers, Answers{Organizacion: col.Organizacion})
 		}
-		salida += string(e) + ","
+
+		indexUser := len(answers[indexOrganizacion].Users)
+		index = Search(len(answers[indexOrganizacion].Users), func(i int) bool { return answers[indexOrganizacion].Users[i].UserName == col.Usuario })
+		if index != -1 {
+			indexUser = index
+		} else {
+			answers[indexOrganizacion].Users = append(answers[indexOrganizacion].Users, User{UserName: col.Usuario})
+		}
+
+		indexRole := len(answers[indexOrganizacion].Users[indexUser].Roles)
+		index = Search(indexRole, func(i int) bool { return answers[indexOrganizacion].Users[indexUser].Roles[i] == col.Rol })
+		if index == -1 {
+			answers[indexOrganizacion].Users[indexUser].Roles = append(answers[indexOrganizacion].Users[indexUser].Roles, col.Rol)
+		}
 
 	}
 
-	salida += "]"
-	fmt.Println(salida)
+	out, err := json.MarshalIndent(answers, "", "  ")
+	if err != nil {
+		log.Println(err)
+		os.Exit(1)
+
+	}
+	fmt.Println(string(out))
 }
 
 func readCsvFile(filePath string) FileCsv1 {

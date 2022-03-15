@@ -25,5 +25,59 @@ GET :8080/resumen/2019-12-01?dias=5
 }
 ```
 # Prueba 2
-
+Lee el archivo de nombre ```archivo.csv``` 
 ## uso
+
+desde terminal o el ejecutable desde manejador de archivos
+## Respuesta
+``` json
+[
+  {
+    "organizacion": "organizacion",
+    "users": [
+      {
+        "username": " usuario",
+        "roles": [
+          " rol "
+        ]
+      }
+    ]
+  },
+  {
+    "organizacion": "org1",
+    "users": [
+      {
+        "username": "jperez",
+        "roles": [
+          "admin ",
+          "superadmin"
+        ]
+      },
+      {
+        "username": "asosa",
+        "roles": [
+          "writer"
+        ]
+      }
+    ]
+  },
+  {
+    "organizacion": "org2",
+    "users": [
+      {
+        "username": "jperez",
+        "roles": [
+          "admin "
+        ]
+      },
+      {
+        "username": "rrodriguez",
+        "roles": [
+          "writer",
+          "editor"
+        ]
+      }
+    ]
+  }
+]
+```

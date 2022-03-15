@@ -14,5 +14,5 @@ type Client struct {
 }
 
 type ListClient struct {
-	CLIENT []Client
+	Clients []Client
 }

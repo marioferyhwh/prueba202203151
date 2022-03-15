@@ -11,5 +11,5 @@ type AnswerA struct {
 	Total         float64       `json:"total"`
 	ComprasPorTDC ComprasPorTDC `json:"comprasPorTDC"`
 	NoCompraron   int           `json:"noCompraron"`
-	CompraMasAlta int           `json:"compraMasAlta"`
+	CompraMasAlta float64       `json:"compraMasAlta"`
 }

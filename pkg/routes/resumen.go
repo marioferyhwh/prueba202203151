@@ -1,8 +1,9 @@
 package routes
 
 import (
-	"fmt"
 	"strconv"
+
+	"github.com/marioferyhwh/prueba202203151/pkg/controllers"
 
 	"github.com/labstack/echo"
 )
@@ -15,8 +16,6 @@ func SetResumenRoutes(c echo.Context) error {
 	if err != nil {
 		return c.JSON(400, "dias no validos")
 	}
-
-	fmt.Println(fecha)
-	fmt.Println(dias)
-	return c.JSON(202, "prueba")
+	answer := controllers.GetResumen(fecha, dias)
+	return c.JSON(202, answer)
 }

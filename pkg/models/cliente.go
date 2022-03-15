@@ -12,3 +12,7 @@ type Client struct {
 	Monto    float64   `json:"monto,omitempty"`
 	Date     time.Time `json:"date,omitempty"`
 }
+
+type ListClient struct {
+	CLIENT []Client
+}

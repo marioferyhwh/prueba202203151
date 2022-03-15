@@ -6,9 +6,8 @@ import (
 	"net"
 	"os"
 
-	"github.com/marioferyhwh/PRUEBA_20220315_1/pkg/routes"
-
 	"github.com/labstack/echo"
+	"github.com/marioferyhwh/prueba202203151/pkg/routes"
 )
 
 func main() {
